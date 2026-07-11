@@ -15,25 +15,25 @@ function updateRetirementCountdown() {
 }
 
 updateRetirementCountdown();
-function updateTodayPanel() {
+function updateToday() {
 
     const now = new Date();
 
-    const options = {
-        weekday: "long",
-        month: "long",
-        day: "numeric",
-        year: "numeric"
-    };
+    document.getElementById("currentDay").textContent =
+        now.toLocaleDateString("en-US", {
+            weekday: "long"
+        });
 
-    const today = now.toLocaleDateString("en-US", options);
+    document.getElementById("currentDate").textContent =
+        now.toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric"
+        });
 
-    const time = now.toLocaleTimeString("en-US");
-
-    document.getElementById("todayPanel").innerHTML =
-        today + "<br><strong>" + time + "</strong>";
+    document.getElementById("currentTime").textContent =
+        now.toLocaleTimeString();
 }
 
-updateTodayPanel();
-
-setInterval(updateTodayPanel, 1000);
+updateToday();
+setInterval(updateToday, 1000);
