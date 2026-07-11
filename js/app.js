@@ -32,7 +32,7 @@ function updateJapanCountdown() {
     );
 
     document.getElementById("japanCountdown").textContent =
-        daysRemaining + " days until departure";
+        daysRemaining + " Days Until Departure";
 }
 
 
