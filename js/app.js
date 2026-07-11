@@ -33,6 +33,28 @@ function updateToday() {
 
     document.getElementById("currentTime").textContent =
         now.toLocaleTimeString();
+        const tokyoOptions = {
+    timeZone: "Asia/Tokyo"
+};
+
+document.getElementById("tokyoDay").textContent =
+    now.toLocaleDateString("en-US", {
+        weekday: "long",
+        ...tokyoOptions
+    });
+
+document.getElementById("tokyoDate").textContent =
+    now.toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+        ...tokyoOptions
+    });
+
+document.getElementById("tokyoTime").textContent =
+    now.toLocaleTimeString("en-US", {
+        timeZone: "Asia/Tokyo"
+    });
 }
 
 updateToday();
