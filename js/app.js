@@ -14,10 +14,37 @@ function updateRetirementCountdown() {
         daysRemaining + " days remaining";
 }
 
-updateRetirementCountdown();
+
+// =====================================
+// Japan Countdown
+// =====================================
+
+const japanDepartureDate = new Date("July 17, 2026");
+
+function updateJapanCountdown() {
+
+    const today = new Date();
+
+    const difference = japanDepartureDate - today;
+
+    const daysRemaining = Math.ceil(
+        difference / (1000 * 60 * 60 * 24)
+    );
+
+    document.getElementById("japanCountdown").textContent =
+        daysRemaining + " days until departure";
+}
+
+
+// =====================================
+// Today & Tokyo
+// =====================================
+
 function updateToday() {
 
     const now = new Date();
+
+    // Today
 
     document.getElementById("currentDay").textContent =
         now.toLocaleDateString("en-US", {
@@ -33,29 +60,42 @@ function updateToday() {
 
     document.getElementById("currentTime").textContent =
         now.toLocaleTimeString();
-        const tokyoOptions = {
-    timeZone: "Asia/Tokyo"
-};
 
-document.getElementById("tokyoDay").textContent =
-    now.toLocaleDateString("en-US", {
-        weekday: "long",
-        ...tokyoOptions
-    });
 
-document.getElementById("tokyoDate").textContent =
-    now.toLocaleDateString("en-US", {
-        month: "long",
-        day: "numeric",
-        year: "numeric",
-        ...tokyoOptions
-    });
+    // Tokyo
 
-document.getElementById("tokyoTime").textContent =
-    now.toLocaleTimeString("en-US", {
+    const tokyoOptions = {
         timeZone: "Asia/Tokyo"
-    });
+    };
+
+    document.getElementById("tokyoDay").textContent =
+        now.toLocaleDateString("en-US", {
+            weekday: "long",
+            ...tokyoOptions
+        });
+
+    document.getElementById("tokyoDate").textContent =
+        now.toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+            ...tokyoOptions
+        });
+
+    document.getElementById("tokyoTime").textContent =
+        now.toLocaleTimeString("en-US", {
+            timeZone: "Asia/Tokyo"
+        });
+
 }
 
+
+// =====================================
+// Start Everything
+// =====================================
+
+updateRetirementCountdown();
+updateJapanCountdown();
 updateToday();
+
 setInterval(updateToday, 1000);
