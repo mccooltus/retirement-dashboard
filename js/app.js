@@ -1,4 +1,18 @@
+// =====================================
+// Constants
+// =====================================
+
 const retirementDate = new Date("March 1, 2029");
+const japanDepartureDate = new Date("July 17, 2026");
+
+const tokyoOptions = {
+    timeZone: "Asia/Tokyo"
+};
+
+
+// =====================================
+// Retirement Countdown
+// =====================================
 
 function updateRetirementCountdown() {
 
@@ -11,15 +25,13 @@ function updateRetirementCountdown() {
     );
 
     document.getElementById("retirementNumber").textContent =
-    daysRemaining;
+        daysRemaining;
 }
 
 
 // =====================================
 // Japan Countdown
 // =====================================
-
-const japanDepartureDate = new Date("July 17, 2026");
 
 function updateJapanCountdown() {
 
@@ -32,7 +44,7 @@ function updateJapanCountdown() {
     );
 
     document.getElementById("japanNumber").textContent =
-    daysRemaining;
+        daysRemaining;
 }
 
 
@@ -61,12 +73,7 @@ function updateToday() {
     document.getElementById("currentTime").textContent =
         now.toLocaleTimeString();
 
-
     // Tokyo
-
-    const tokyoOptions = {
-        timeZone: "Asia/Tokyo"
-    };
 
     document.getElementById("tokyoDay").textContent =
         now.toLocaleDateString("en-US", {
@@ -91,23 +98,8 @@ function updateToday() {
 
 
 // =====================================
-// Start Everything
+// Sunrise & Sunset
 // =====================================
-
-updateRetirementCountdown();
-updateJapanCountdown();
-document.getElementById("japanDepartureDate").textContent =
-    "Friday, July 17, 2026";
-
-document.getElementById("japanFlight").innerHTML =
-    "United Airlines<br>LAX → HND";
-
-document.getElementById("japanDestination").textContent =
-    "Tokyo, Japan";
-updateToday();
-updateSunriseSunset();
-
-setInterval(updateToday, 1000);
 
 async function updateSunriseSunset() {
 
@@ -137,3 +129,24 @@ async function updateSunriseSunset() {
         });
 
 }
+
+
+// =====================================
+// Start Everything
+// =====================================
+
+document.getElementById("japanDepartureDate").textContent =
+    "Friday, July 17, 2026";
+
+document.getElementById("japanFlight").innerHTML =
+    "United Airlines<br>LAX → HND";
+
+document.getElementById("japanDestination").textContent =
+    "Tokyo, Japan";
+
+updateRetirementCountdown();
+updateJapanCountdown();
+updateToday();
+updateSunriseSunset();
+
+setInterval(updateToday, 1000);
