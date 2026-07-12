@@ -10,8 +10,8 @@ function updateRetirementCountdown() {
         difference / (1000 * 60 * 60 * 24)
     );
 
-    document.getElementById("retirementCountdown").textContent =
-        daysRemaining + " days remaining";
+    document.getElementById("retirementNumber").textContent =
+    daysRemaining;
 }
 
 
@@ -31,8 +31,8 @@ function updateJapanCountdown() {
         difference / (1000 * 60 * 60 * 24)
     );
 
-    document.getElementById("japanCountdown").textContent =
-        daysRemaining + " Days Until Departure";
+    document.getElementById("japanNumber").textContent =
+    daysRemaining;
 }
 
 
@@ -96,6 +96,14 @@ function updateToday() {
 
 updateRetirementCountdown();
 updateJapanCountdown();
+document.getElementById("japanDepartureDate").textContent =
+    "Friday, July 17, 2026";
+
+document.getElementById("japanFlight").innerHTML =
+    "United Airlines<br>LAX → HND";
+
+document.getElementById("japanDestination").textContent =
+    "Tokyo, Japan";
 updateToday();
 
 setInterval(updateToday, 1000);
