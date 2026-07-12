@@ -105,5 +105,35 @@ document.getElementById("japanFlight").innerHTML =
 document.getElementById("japanDestination").textContent =
     "Tokyo, Japan";
 updateToday();
+updateSunriseSunset();
 
 setInterval(updateToday, 1000);
+
+async function updateSunriseSunset() {
+
+    const url =
+        "https://api.sunrise-sunset.org/json?lat=33.0369&lng=-117.2919&formatted=0";
+
+    const response = await fetch(url);
+
+    const data = await response.json();
+
+    const sunrise = new Date(data.results.sunrise);
+
+    const sunset = new Date(data.results.sunset);
+
+    document.getElementById("sunrise").textContent =
+        "Sunrise: " +
+        sunrise.toLocaleTimeString([], {
+            hour: "numeric",
+            minute: "2-digit"
+        });
+
+    document.getElementById("sunset").textContent =
+        "Sunset: " +
+        sunset.toLocaleTimeString([], {
+            hour: "numeric",
+            minute: "2-digit"
+        });
+
+}
