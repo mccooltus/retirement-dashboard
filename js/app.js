@@ -9,6 +9,16 @@ const tokyoOptions = {
     timeZone: "Asia/Tokyo"
 };
 
+// =====================================
+// Non-Working Days
+// =====================================
+
+const nonWorkingDays = [
+    "2026-09-07", // Labor Day
+    "2026-11-11", // Veterans Day
+    "2026-11-26", // Thanksgiving
+    "2026-12-25"  // Christmas
+];
 
 // =====================================
 // Retirement Countdown
@@ -41,16 +51,27 @@ function updateWorkingDaysCountdown() {
 
     while (currentDate < retirementDate) {
 
-    const dayOfWeek = currentDate.getDay();
+        const dayOfWeek = currentDate.getDay();
 
-    if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+        const dateString = currentDate.toISOString().split("T")[0];
 
-        workingDays++;
+        if (
+            dayOfWeek >= 1 &&
+            dayOfWeek <= 5 &&
+            !nonWorkingDays.includes(dateString)
+        ) {
+
+            workingDays++;
+
+        }
+
+        currentDate.setDate(currentDate.getDate() + 1);
+
     }
-    currentDate.setDate(currentDate.getDate() + 1);
-}
-document.getElementById("workingDaysNumber").textContent =
-    workingDays;
+
+    document.getElementById("workingDaysNumber").textContent =
+        workingDays;
+
 }
 
 
