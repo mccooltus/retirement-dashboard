@@ -30,6 +30,32 @@ function updateRetirementCountdown() {
 
 
 // =====================================
+// Working Days
+// =====================================
+
+function updateWorkingDaysCountdown() {
+
+    let workingDays = 0;
+
+    let currentDate = new Date();
+
+    while (currentDate < retirementDate) {
+
+    const dayOfWeek = currentDate.getDay();
+
+    if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+
+        workingDays++;
+    }
+    currentDate.setDate(currentDate.getDate() + 1);
+}
+document.getElementById("workingDaysNumber").textContent =
+    workingDays;
+}
+
+
+
+// =====================================
 // Japan Countdown
 // =====================================
 
@@ -145,6 +171,7 @@ document.getElementById("japanDestination").textContent =
     "Tokyo, Japan";
 
 updateRetirementCountdown();
+updateWorkingDaysCountdown();
 updateJapanCountdown();
 updateToday();
 updateSunriseSunset();
