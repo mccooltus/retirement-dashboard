@@ -14,10 +14,22 @@ const tokyoOptions = {
 // =====================================
 
 const nonWorkingDays = [
-    "2026-09-07", // Labor Day
-    "2026-11-11", // Veterans Day
-    "2026-11-26", // Thanksgiving
-    "2026-12-25"  // Christmas
+    {
+        date: "2026-09-07",
+        name: "Labor Day"
+    },
+    {
+        date: "2026-11-11",
+        name: "Veterans Day"
+    },
+    {
+        date: "2026-11-26",
+        name: "Thanksgiving"
+    },
+    {
+        date: "2026-12-25",
+        name: "Christmas"
+    }
 ];
 
 // =====================================
@@ -53,12 +65,15 @@ function updateWorkingDaysCountdown() {
 
         const dayOfWeek = currentDate.getDay();
 
-        const dateString = currentDate.toISOString().split("T")[0];
+        const dateString =
+            currentDate.getFullYear() + "-" +
+            String(currentDate.getMonth() + 1).padStart(2, "0") + "-" +
+            String(currentDate.getDate()).padStart(2, "0");
 
         if (
             dayOfWeek >= 1 &&
             dayOfWeek <= 5 &&
-            !nonWorkingDays.includes(dateString)
+            !nonWorkingDays.some(day => day.date === dateString)
         ) {
 
             workingDays++;
