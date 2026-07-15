@@ -3,7 +3,12 @@
 // =====================================
 
 const retirementDate = new Date("March 1, 2029");
-const japanDepartureDate = new Date("July 17, 2026");
+const trip = {
+    departureDate: new Date("October 18, 2026"),
+    destination: "Sydney, Australia",
+    airline: "Qantas",
+    flight: "LAX → SYD"
+};
 
 const tokyoOptions = {
     timeZone: "Asia/Tokyo"
@@ -99,7 +104,7 @@ function updateJapanCountdown() {
 
     const today = new Date();
 
-    const difference = japanDepartureDate - today;
+    const difference = trip.departureDate - today;
 
     const daysRemaining = Math.ceil(
         difference / (1000 * 60 * 60 * 24)
