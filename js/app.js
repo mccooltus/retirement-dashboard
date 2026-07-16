@@ -110,9 +110,23 @@ function updateJapanCountdown() {
         difference / (1000 * 60 * 60 * 24)
     );
 
-    document.getElementById("japanNumber").textContent =
+    document.getElementById("tripNumber").textContent =
         daysRemaining;
-}
+
+    document.getElementById("tripDepartureDate").textContent =
+        trip.departureDate.toLocaleDateString("en-US", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        });
+
+    document.getElementById("tripFlight").textContent =
+        `${trip.airline} • ${trip.flight}`;
+
+    document.getElementById("tripDestination").textContent =
+        trip.destination;
+}   
 
 
 // =====================================
@@ -201,15 +215,6 @@ async function updateSunriseSunset() {
 // =====================================
 // Start Everything
 // =====================================
-
-document.getElementById("japanDepartureDate").textContent =
-    "Friday, July 17, 2026";
-
-document.getElementById("japanFlight").innerHTML =
-    "United Airlines<br>LAX → HND";
-
-document.getElementById("japanDestination").textContent =
-    "Tokyo, Japan";
 
 updateRetirementCountdown();
 updateWorkingDaysCountdown();
