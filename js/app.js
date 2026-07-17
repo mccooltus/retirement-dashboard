@@ -7,7 +7,8 @@ const trip = {
     departureDate: new Date("October 18, 2026"),
     destination: "Sydney, Australia",
     airline: "Qantas",
-    flight: "LAX → SYD"
+    flight: "LAX → SYD",
+    timeZone: "Australia/Sydney"
 };
 
 const tokyoOptions = {
@@ -126,6 +127,30 @@ function updateJapanCountdown() {
 
     document.getElementById("tripDestination").textContent =
         trip.destination;
+
+    const hour = Number(
+    new Intl.DateTimeFormat("en-US", {
+        hour: "numeric",
+        hour12: false,
+        timeZone: trip.timeZone
+    }).format(new Date())
+
+);
+
+//console.log(destinationTime);
+console.log(hour);
+
+if (hour >= 9 && hour < 17) {
+
+    document.getElementById("businessHours").textContent =
+        "🟢 Business Hours";
+
+} else {
+
+    document.getElementById("businessHours").textContent =
+        "🌙 Outside Business Hours";
+
+}    
 }   
 
 
