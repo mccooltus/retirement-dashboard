@@ -4,8 +4,9 @@
 
 const retirementDate = new Date("March 1, 2029");
 const trip = {
-    departureDate: new Date("October 18, 2026"),
+    city: "Sydney",
     destination: "Sydney, Australia",
+    departureDate: new Date("October 18, 2026"),
     airline: "Qantas",
     flight: "LAX → SYD",
     timeZone: "Australia/Sydney"
@@ -137,8 +138,6 @@ function updateJapanCountdown() {
 
 );
 
-//console.log(destinationTime);
-console.log(hour);
 
 if (hour >= 9 && hour < 17) {
 
@@ -182,23 +181,23 @@ function updateToday() {
     // Tokyo
 
     document.getElementById("tokyoDay").textContent =
-        now.toLocaleDateString("en-US", {
-            weekday: "long",
-            ...tokyoOptions
-        });
+    now.toLocaleDateString("en-US", {
+        weekday: "long",
+        timeZone: trip.timeZone
+    });
 
     document.getElementById("tokyoDate").textContent =
         now.toLocaleDateString("en-US", {
             month: "long",
             day: "numeric",
             year: "numeric",
-            ...tokyoOptions
+            timeZone: trip.timeZone
         });
 
     document.getElementById("tokyoTime").textContent =
-        now.toLocaleTimeString("en-US", {
-            timeZone: "Asia/Tokyo"
-        });
+    now.toLocaleTimeString("en-US", {
+        timeZone: trip.timeZone
+    });
 
 }
 
