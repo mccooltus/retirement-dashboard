@@ -1,12 +1,22 @@
 // =====================================
+// TODO LIST
+// =====================================
+
+// TODO: Subtract PTO days.
+// TODO: Add Phillies schedule.
+// TODO: Add Padres ticket dates.
+// TODO: Add next milestone card.
+// TODO: Generate holidays automatically.
+
+// =====================================
 // Constants
 // =====================================
 
-const retirementDate = new Date("March 1, 2029");
+const retirementDate = new Date("2029-03-01");
 const trip = {
     city: "Sydney",
     destination: "Sydney, Australia",
-    departureDate: new Date("October 18, 2026"),
+    departureDate: new Date("2026-10-18"),
     airline: "Qantas",
     flight: "LAX → SYD",
     timeZone: "Australia/Sydney"
@@ -36,6 +46,10 @@ const nonWorkingDays = [
     {
         date: "2026-12-25",
         name: "Christmas"
+    },
+    {
+        date: "2027-01-01",
+        name: "New Year's Day"
     }
 ];
 
@@ -68,35 +82,34 @@ function updateWorkingDaysCountdown() {
 
     let currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
+    currentDate.setHours(0, 0, 0, 0);
 
+   
     while (currentDate < retirementDate) {
 
-        const dayOfWeek = currentDate.getDay();
+    const dayOfWeek = currentDate.getDay();
 
-        const dateString =
-            currentDate.getFullYear() + "-" +
-            String(currentDate.getMonth() + 1).padStart(2, "0") + "-" +
-            String(currentDate.getDate()).padStart(2, "0");
+    const dateString =
+        currentDate.getFullYear() + "-" +
+        String(currentDate.getMonth() + 1).padStart(2, "0") + "-" +
+        String(currentDate.getDate()).padStart(2, "0");
 
-        if (
-            dayOfWeek >= 1 &&
-            dayOfWeek <= 5 &&
-            !nonWorkingDays.some(day => day.date === dateString)
-        ) {
-
-            workingDays++;
-
-        }
-
-        currentDate.setDate(currentDate.getDate() + 1);
-
+    if (
+        dayOfWeek >= 1 &&
+        dayOfWeek <= 5 &&
+        !nonWorkingDays.some(day => day.date === dateString)
+    ) {
+        workingDays++;
     }
 
+    currentDate.setDate(currentDate.getDate() + 1);
+}
+
+    
     document.getElementById("workingDaysNumber").textContent =
         workingDays;
 
 }
-
 
 
 // =====================================
@@ -212,27 +225,40 @@ async function updateSunriseSunset() {
     const url =
         "https://api.sunrise-sunset.org/json?lat=33.0369&lng=-117.2919&formatted=0";
 
-    const response = await fetch(url);
+    try {
 
-    const data = await response.json();
+        const response = await fetch(url);
 
-    const sunrise = new Date(data.results.sunrise);
+        const data = await response.json();
 
-    const sunset = new Date(data.results.sunset);
+        const sunrise = new Date(data.results.sunrise);
 
-    document.getElementById("sunrise").textContent =
-        "Sunrise: " +
-        sunrise.toLocaleTimeString([], {
-            hour: "numeric",
-            minute: "2-digit"
-        });
+        const sunset = new Date(data.results.sunset);
 
-    document.getElementById("sunset").textContent =
-        "Sunset: " +
-        sunset.toLocaleTimeString([], {
-            hour: "numeric",
-            minute: "2-digit"
-        });
+        document.getElementById("sunrise").textContent =
+            "Sunrise: " +
+            sunrise.toLocaleTimeString([], {
+                hour: "numeric",
+                minute: "2-digit"
+            });
+
+        document.getElementById("sunset").textContent =
+            "Sunset: " +
+            sunset.toLocaleTimeString([], {
+                hour: "numeric",
+                minute: "2-digit"
+            });
+
+    } catch (error) {
+
+        console.error("Unable to load sunrise/sunset:", error);
+
+        document.getElementById("sunrise").textContent =
+            "Sunrise: --";
+
+        document.getElementById("sunset").textContent =
+            "Sunset: --";
+    }
 
 }
 
