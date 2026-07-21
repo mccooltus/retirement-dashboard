@@ -27,7 +27,7 @@ const tokyoOptions = {
 };
 
 // =====================================
-// Non-Working Days
+// Milestones
 // =====================================
 
 const milestones = [
@@ -63,6 +63,16 @@ const milestones = [
     }
 ];
 
+// =====================================
+// Holidays (Excluded from Working Days)
+// =====================================
+
+const holidays = [
+    "2026-09-07", // Labor Day
+    "2026-11-11", // Veterans Day
+    "2026-11-26", // Thanksgiving
+    "2026-12-25"  // Christmas
+];
 const ptoDays = [
     // Future Mission Build
     
@@ -78,7 +88,63 @@ function getNextMilestone() {
 
     return milestones.find(milestone => milestone.date >= today);
 }
-    
+    function updateNextMilestone() {
+
+    const milestone = getNextMilestone();
+
+    if (!milestone) return;
+
+    const icon = getMilestoneIcon(milestone.type);
+
+   document.getElementById("nextEventName").textContent =
+    `${icon} ${milestone.title}`;
+
+    const daysRemaining = getDaysUntil(milestone.date);
+
+    const dayText = daysRemaining === 1 ? "Day" : "Days";
+
+    document.getElementById("nextEventDate").textContent =
+    `in ${daysRemaining} ${dayText}`;
+
+}
+
+function getDaysUntil(targetDate) {
+
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0);
+
+    const target = new Date(targetDate);
+
+    target.setHours(0, 0, 0, 0);
+
+    const millisecondsPerDay = 1000 * 60 * 60 * 24;
+
+    return Math.round((target - today) / millisecondsPerDay);
+
+}
+
+function getMilestoneIcon(type) {
+
+    switch (type) {
+
+        case "holiday":
+            return "🇺🇸";
+
+        case "personal":
+            return "🎂";
+
+        case "travel":
+            return "✈️";
+
+        case "life":
+            return "🎉";
+
+        default:
+            return "📅";
+    }
+
+}
 // =====================================
 // Retirement Countdown
 // =====================================
@@ -123,12 +189,10 @@ function updateWorkingDaysCountdown() {
     if (
         dayOfWeek >= 1 &&
         dayOfWeek <= 5 &&
-        !milestones.some(
-            milestone =>
-            milestone.type === "holiday" &&
-            milestone.date.toISOString().split("T")[0] === dateString
+        !holidays.includes(dateString)
+            
 )
-    ) {
+    {
         workingDays++;
     }
 
@@ -140,6 +204,7 @@ function updateWorkingDaysCountdown() {
         workingDays;
 
 }
+
 
 
 // =====================================
@@ -302,5 +367,6 @@ updateWorkingDaysCountdown();
 updateJapanCountdown();
 updateToday();
 updateSunriseSunset();
+updateNextMilestone();
 
 setInterval(updateToday, 1000);
