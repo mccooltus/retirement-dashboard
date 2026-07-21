@@ -174,7 +174,7 @@ function updateWorkingDaysCountdown() {
 
     let currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
-    currentDate.setHours(0, 0, 0, 0);
+    
 
    
     while (currentDate < retirementDate) {
