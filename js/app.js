@@ -1,5 +1,5 @@
 // =====================================
-// TODO LIST
+// TODO LIST Mission Build 017
 // =====================================
 
 // TODO: Subtract PTO days.
@@ -30,29 +30,55 @@ const tokyoOptions = {
 // Non-Working Days
 // =====================================
 
-const nonWorkingDays = [
+const milestones = [
     {
-        date: "2026-09-07",
-        name: "Labor Day"
+        title: "Labor Day",
+        date: new Date("2026-09-07"),
+        type: "holiday"
     },
     {
-        date: "2026-11-11",
-        name: "Veterans Day"
+        title: "Birthday",
+        date: new Date("2026-09-27"),
+        type: "personal"
     },
     {
-        date: "2026-11-26",
-        name: "Thanksgiving"
+        title: "Veterans Day",
+        date: new Date("2026-11-11"),
+        type: "holiday"
     },
     {
-        date: "2026-12-25",
-        name: "Christmas"
+        title: "Thanksgiving",
+        date: new Date("2026-11-26"),
+        type: "holiday"
     },
     {
-        date: "2027-01-01",
-        name: "New Year's Day"
+        title: "Christmas",
+        date: new Date("2026-12-25"),
+        type: "holiday"
+    },
+    {
+        title: "Retirement",
+        date: retirementDate,
+        type: "life"
     }
 ];
 
+const ptoDays = [
+    // Future Mission Build
+    
+];
+
+// =====================================
+// Functions
+// =====================================
+
+function getNextMilestone() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    return milestones.find(milestone => milestone.date >= today);
+}
+    
 // =====================================
 // Retirement Countdown
 // =====================================
@@ -97,7 +123,11 @@ function updateWorkingDaysCountdown() {
     if (
         dayOfWeek >= 1 &&
         dayOfWeek <= 5 &&
-        !nonWorkingDays.some(day => day.date === dateString)
+        !milestones.some(
+            milestone =>
+            milestone.type === "holiday" &&
+            milestone.date.toISOString().split("T")[0] === dateString
+)
     ) {
         workingDays++;
     }
