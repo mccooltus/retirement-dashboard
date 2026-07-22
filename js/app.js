@@ -1,5 +1,5 @@
 // =====================================
-// TODO LIST Mission Build 017
+// TODO LIST Mission Build 019
 // =====================================
 
 // TODO: Subtract PTO days.
@@ -14,17 +14,30 @@
 
 const retirementDate = new Date("2029-03-01");
 const trip = {
-    city: "Sydney",
-    destination: "Sydney, Australia",
-    departureDate: new Date("2026-10-18"),
-    airline: "Qantas",
-    flight: "LAX → SYD",
+    title: "Next Adventure",
+    status: "Booked",
+
+    city: "Auckland",
+    country: "New Zealand",
+    
+    departureDate: new Date("2026-10-20"),
+    departureAirport: "LAX",
+    arrivalAirport: "AKL",
+
+    airline: "Air New Zealand",
+    flight: "NZ5",
+
     timeZone: "Australia/Sydney"
 };
 
-const tokyoOptions = {
-    timeZone: "Asia/Tokyo"
+const aucklandOptions = {
+    timeZone: "Pacific/Auckland",
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
 };
+
 
 // =====================================
 // Milestones
@@ -62,6 +75,7 @@ const milestones = [
         type: "life"
     }
 ];
+
 
 // =====================================
 // Holidays (Excluded from Working Days)
@@ -221,8 +235,7 @@ function updateJapanCountdown() {
         difference / (1000 * 60 * 60 * 24)
     );
 
-    document.getElementById("tripNumber").textContent =
-        daysRemaining;
+    document.getElementById("tripCountdown").textContent = daysRemaining;
 
     document.getElementById("tripDepartureDate").textContent =
         trip.departureDate.toLocaleDateString("en-US", {
@@ -236,7 +249,7 @@ function updateJapanCountdown() {
         `${trip.airline} • ${trip.flight}`;
 
     document.getElementById("tripDestination").textContent =
-        trip.destination;
+        `${trip.city}, ${trip.country}`
 
     const hour = Number(
     new Intl.DateTimeFormat("en-US", {
