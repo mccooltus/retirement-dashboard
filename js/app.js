@@ -19,15 +19,16 @@ const trip = {
 
     city: "Auckland",
     country: "New Zealand",
-    
-    departureDate: new Date("2026-10-20"),
+
+    departureDateTime: new Date("2026-10-20T21:10:00"),
+
     departureAirport: "LAX",
     arrivalAirport: "AKL",
 
     airline: "Air New Zealand",
     flight: "NZ5",
 
-    timeZone: "Australia/Sydney"
+    timeZone: "Pacific/Auckland"
 };
 
 const aucklandOptions = {
@@ -229,7 +230,7 @@ function updateJapanCountdown() {
 
     const today = new Date();
 
-    const difference = trip.departureDate - today;
+    const difference = trip.departureDateTime - today;
 
     const daysRemaining = Math.ceil(
         difference / (1000 * 60 * 60 * 24)
@@ -238,7 +239,7 @@ function updateJapanCountdown() {
     document.getElementById("tripCountdown").textContent = daysRemaining;
 
     document.getElementById("tripDepartureDate").textContent =
-        trip.departureDate.toLocaleDateString("en-US", {
+        trip.departureDateTime.toLocaleDateString("en-US", {
             weekday: "long",
             year: "numeric",
             month: "long",
