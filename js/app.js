@@ -84,14 +84,76 @@ const milestones = [
 // =====================================
 
 const holidays = [
+
+    // ==========================
+    // 2026
+    // ==========================
     "2026-09-07", // Labor Day
     "2026-11-11", // Veterans Day
     "2026-11-26", // Thanksgiving
-    "2026-12-25"  // Christmas
+    "2026-12-25", // Christmas
+
+    // ==========================
+    // 2027
+    // ==========================
+    "2027-01-01", // New Year's Day
+    "2027-01-18", // Martin Luther King Jr. Day
+    "2027-02-15", // Presidents Day
+    "2027-05-31", // Memorial Day
+    "2027-06-18", // Juneteenth (Observed)
+    "2027-07-05", // Independence Day (Observed)
+    "2027-09-06", // Labor Day
+    "2027-11-11", // Veterans Day
+    "2027-11-25", // Thanksgiving
+    "2027-12-24", // Christmas (Observed)
+
+    // ==========================
+    // 2028
+    // ==========================
+    "2028-01-17", // Martin Luther King Jr. Day
+    "2028-02-21", // Presidents Day
+    "2028-05-29", // Memorial Day
+    "2028-06-19", // Juneteenth
+    "2028-07-04", // Independence Day
+    "2028-09-04", // Labor Day
+    "2028-11-10", // Veterans Day (Observed)
+    "2028-11-23", // Thanksgiving
+    "2028-12-25", // Christmas
+
+    // ==========================
+    // 2029
+    // ==========================
+    "2029-01-01", // New Year's Day
+    "2029-01-15", // Martin Luther King Jr. Day
+    "2029-02-19"  // Presidents Day
+
 ];
-const ptoDays = [
-    // Future Mission Build
-    
+
+const pto = [
+
+    // Summer PTO
+    "2026-07-27",
+    "2026-07-28",
+    "2026-07-29",
+    "2026-07-30",
+    "2026-07-31",
+
+    // New Zealand PTO
+    "2026-10-20",
+    "2026-10-21",
+    "2026-10-22",
+    "2026-10-23",
+    "2026-10-26",
+    "2026-10-27",
+    "2026-10-28",
+    "2026-10-29",
+    "2026-10-30",
+    "2026-11-02",
+    "2026-11-03",
+    "2026-11-04",
+    "2026-11-05",
+    "2026-11-06"
+
 ];
 
 // =====================================
@@ -203,11 +265,12 @@ function updateWorkingDaysCountdown() {
         String(currentDate.getDate()).padStart(2, "0");
 
     if (
-        dayOfWeek >= 1 &&
-        dayOfWeek <= 5 &&
-        !holidays.includes(dateString)
-            
+    dayOfWeek >= 1 &&
+    dayOfWeek <= 5 &&
+    !holidays.includes(dateString) &&
+    !pto.includes(dateString)
 )
+            
     {
         workingDays++;
     }
