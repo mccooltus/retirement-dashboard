@@ -59,6 +59,35 @@ section {
     letter-spacing: 2px;
     margin-bottom: 20px;
 }
+
+#tripCountdown {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#tripLabel {
+    color: #cbd5e1;
+    font-size: .9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+#tripDestination {
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    margin-top: 4px;
+    margin-bottom: 12px;
+}
+
+#tripFlight {
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    margin-top: 6px;
+}
 #japanNumber {
     font-size: 3em;
     font-weight: bold;

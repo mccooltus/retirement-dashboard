@@ -1,5 +1,5 @@
 // =====================================
-// TODO LIST Mission Build 019
+// TODO LIST Mission Build 021
 // =====================================
 
 // TODO: Subtract PTO days.
@@ -12,6 +12,7 @@
 // Constants
 // =====================================
 
+const tripDepartureTime = document.getElementById("tripDepartureTime");
 const retirementDate = new Date("2029-03-01");
 const trip = {
     title: "Next Adventure",
@@ -246,6 +247,12 @@ function updateJapanCountdown() {
             day: "numeric"
         });
 
+        tripDepartureTime.textContent =
+            trip.departureDateTime.toLocaleTimeString("en-US", {
+                hour: "numeric",
+                minute: "2-digit"
+    }) + " PT";
+
     document.getElementById("tripFlight").textContent =
         `${trip.airline} • ${trip.flight}`;
 
@@ -265,7 +272,7 @@ function updateJapanCountdown() {
 if (hour >= 9 && hour < 17) {
 
     document.getElementById("businessHours").textContent =
-        "🟢 Business Hours";
+        "🟢 Auckland Business Hours";
 
 } else {
 
