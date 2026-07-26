@@ -22,6 +22,7 @@ const trip = {
     country: "New Zealand",
 
     departureDateTime: new Date("2026-10-20T21:10:00"),
+    arrivalDateTime: new Date("2026-10-22T06:00:00+13:00"),
 
     departureAirport: "LAX",
     arrivalAirport: "AKL",
@@ -316,6 +317,36 @@ function updateJapanCountdown() {
                 minute: "2-digit"
     }) + " PT";
 
+    document.getElementById("tripArrivalDate").textContent =
+        "Arrival: " +
+        trip.arrivalDateTime.toLocaleDateString("en-US", {
+            weekday: "long",
+            month: "long",
+            day: "numeric",
+            timeZone: trip.timeZone
+    });
+
+    document.getElementById("tripArrivalTime").textContent =
+        "Arrival Time: " +
+        trip.arrivalDateTime.toLocaleTimeString("en-US", {
+            hour: "numeric",
+            minute: "2-digit",
+            timeZone: trip.timeZone
+});
+
+    const flightMilliseconds =
+        trip.arrivalDateTime - trip.departureDateTime;
+
+    const flightHours =
+        Math.floor(flightMilliseconds / (1000 * 60 * 60));
+
+    const flightMinutes =
+        Math.floor((flightMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
+
+document.getElementById("tripFlightDuration").textContent =
+    `Flight Duration: ${flightHours}h ${flightMinutes}m`;
+
+
     document.getElementById("tripFlight").textContent =
         `${trip.airline} • ${trip.flight}`;
 
@@ -347,36 +378,32 @@ if (hour >= 9 && hour < 17) {
 
 
 // =====================================
-// Today & Tokyo
+// Today & Destination
 // =====================================
 
 function updateToday() {
 
     const now = new Date();
 
-    // Today
+// Home (Pacific Time)
 
-    document.getElementById("currentDay").textContent =
-        now.toLocaleDateString("en-US", {
-            weekday: "long"
-        });
-
-    document.getElementById("currentDate").textContent =
-        now.toLocaleDateString("en-US", {
-            month: "long",
-            day: "numeric",
-            year: "numeric"
-        });
-
-    document.getElementById("currentTime").textContent =
-        now.toLocaleTimeString();
-
-    // Tokyo
-
-    document.getElementById("tokyoDay").textContent =
+document.getElementById("currentDay").textContent =
     now.toLocaleDateString("en-US", {
         weekday: "long",
-        timeZone: trip.timeZone
+        timeZone: "America/Los_Angeles"
+    });
+
+document.getElementById("currentDate").textContent =
+    now.toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+        timeZone: "America/Los_Angeles"
+    });
+
+document.getElementById("currentTime").textContent =
+    now.toLocaleTimeString("en-US", {
+        timeZone: "America/Los_Angeles"
     });
 
     document.getElementById("tokyoDate").textContent =
