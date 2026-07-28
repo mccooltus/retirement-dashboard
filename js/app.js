@@ -288,10 +288,10 @@ function updateWorkingDaysCountdown() {
 
 
 // =====================================
-// Japan Countdown
+// Trip Countdown
 // =====================================
 
-function updateJapanCountdown() {
+function updateTripCountdown() {
 
     const today = new Date();
 
@@ -475,7 +475,7 @@ async function updateSunriseSunset() {
 
 updateRetirementCountdown();
 updateWorkingDaysCountdown();
-updateJapanCountdown();
+updateTripCountdown();
 updateToday();
 updateSunriseSunset();
 updateNextMilestone();
