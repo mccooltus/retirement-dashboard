@@ -421,6 +421,25 @@ document.getElementById("currentTime").textContent =
 
 }
 
+// =====================================
+// Sunrise / Sunset Helper
+// =====================================
+
+async function getSunriseSunset(latitude, longitude) {
+
+    const url =
+        `https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&formatted=0`;
+
+    const response = await fetch(url);
+
+    const data = await response.json();
+
+    return {
+        sunrise: new Date(data.results.sunrise),
+        sunset: new Date(data.results.sunset)
+    };
+
+}
 
 // =====================================
 // Sunrise & Sunset
@@ -428,18 +447,13 @@ document.getElementById("currentTime").textContent =
 
 async function updateSunriseSunset() {
 
-    const url =
-        "https://api.sunrise-sunset.org/json?lat=33.0369&lng=-117.2919&formatted=0";
-
     try {
 
-        const response = await fetch(url);
-
-        const data = await response.json();
-
-        const sunrise = new Date(data.results.sunrise);
-
-        const sunset = new Date(data.results.sunset);
+    const { sunrise, sunset } =
+        await getSunriseSunset(
+            33.0369,
+            -117.2919
+        );
 
         document.getElementById("sunrise").textContent =
             "Sunrise: " +
@@ -468,6 +482,49 @@ async function updateSunriseSunset() {
 
 }
 
+// =====================================
+// Trip Sunrise & Sunset
+// =====================================
+
+async function updateTripSunriseSunset() {
+
+    try {
+
+        const { sunrise, sunset } =
+            await getSunriseSunset(
+                trip.latitude,
+                trip.longitude
+            );
+
+        document.getElementById("tripSunrise").textContent =
+            "☀️ Sunrise: " +
+            sunrise.toLocaleTimeString([], {
+                hour: "numeric",
+                minute: "2-digit",
+                timeZone: trip.timeZone
+            });
+
+        document.getElementById("tripSunset").textContent =
+            "🌇 Sunset: " +
+            sunset.toLocaleTimeString([], {
+                hour: "numeric",
+                minute: "2-digit",
+                timeZone: trip.timeZone
+            });
+
+    } catch (error) {
+
+        console.error("Unable to load trip sunrise/sunset:", error);
+
+        document.getElementById("tripSunrise").textContent =
+            "☀️ Sunrise: --";
+
+        document.getElementById("tripSunset").textContent =
+            "🌇 Sunset: --";
+
+    }
+
+}
 
 // =====================================
 // Start Everything
@@ -479,5 +536,6 @@ updateTripCountdown();
 updateToday();
 updateSunriseSunset();
 updateNextMilestone();
+updateTripSunriseSunset();
 
 setInterval(updateToday, 1000);
