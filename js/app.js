@@ -58,6 +58,11 @@ const milestones = [
         type: "personal"
     },
     {
+        title: "50th HS Reunion",
+        date: new Date("2026-10-03"),
+        type: "personal"
+},
+    {
         title: "Veterans Day",
         date: new Date("2026-11-11"),
         type: "holiday"
@@ -425,14 +430,24 @@ document.getElementById("currentTime").textContent =
 // Sunrise / Sunset Helper
 // =====================================
 
-async function getSunriseSunset(latitude, longitude) {
+async function getSunriseSunset(
+    latitude,
+    longitude,
+    date = "today",
+    timeZone = "UTC"
+) {
 
     const url =
-        `https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&formatted=0`;
+        `https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&date=${date}&formatted=0&tzid=${encodeURIComponent(timeZone)}`;
 
     const response = await fetch(url);
 
     const data = await response.json();
+
+    console.log("Raw sunrise:", data.results.sunrise);
+    console.log("Raw sunset:", data.results.sunset);
+
+    console.log(data.results);
 
     return {
         sunrise: new Date(data.results.sunrise),
@@ -450,10 +465,14 @@ async function updateSunriseSunset() {
     try {
 
     const { sunrise, sunset } =
-        await getSunriseSunset(
-            33.0369,
-            -117.2919
-        );
+    await getSunriseSunset(
+        33.0369,
+        -117.2919,
+        "today",
+        "America/Los_Angeles"
+    );
+
+        
 
         document.getElementById("sunrise").textContent =
             "Sunrise: " +
@@ -490,12 +509,15 @@ async function updateTripSunriseSunset() {
 
     try {
 
-        const { sunrise, sunset } =
-            await getSunriseSunset(
-                trip.latitude,
-                trip.longitude
-            );
+       const { sunrise, sunset } =
+        await getSunriseSunset(
+        trip.latitude,
+        trip.longitude,
+        "2026-10-22",
+        trip.timeZone
+    );
 
+        
         document.getElementById("tripSunrise").textContent =
             "☀️ Sunrise: " +
             sunrise.toLocaleTimeString([], {
