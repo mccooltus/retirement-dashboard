@@ -21,6 +21,9 @@ const trip = {
     city: "Auckland",
     country: "New Zealand",
 
+    latitude: -36.8509,
+    longitude: 174.7645,
+
     departureDateTime: new Date("2026-10-20T21:10:00"),
     arrivalDateTime: new Date("2026-10-22T06:00:00+13:00"),
 
@@ -438,20 +441,15 @@ async function getSunriseSunset(
 ) {
 
     const url =
-        `https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&date=${date}&formatted=0&tzid=${encodeURIComponent(timeZone)}`;
+        `https://api.sunrise-sunset.org/v2?lat=${latitude}&lng=${longitude}&date=${date}&tz=${encodeURIComponent(timeZone)}`;
 
     const response = await fetch(url);
 
     const data = await response.json();
 
-    console.log("Raw sunrise:", data.results.sunrise);
-    console.log("Raw sunset:", data.results.sunset);
-
-    console.log(data.results);
-
     return {
-        sunrise: new Date(data.results.sunrise),
-        sunset: new Date(data.results.sunset)
+        sunrise: new Date(data.sunrise),
+        sunset: new Date(data.sunset)
     };
 
 }
