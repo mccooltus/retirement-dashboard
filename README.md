@@ -15,7 +15,7 @@ A personal dashboard that tracks retirement milestones, travel adventures, impor
 - Company Holiday Awareness
 - Next Event
 - Next Adventure
-- Today & Tokyo Time
+- Today & Destination Time
 - Sunrise & Sunset (Encinitas)
 - Mission Build Tracking
 

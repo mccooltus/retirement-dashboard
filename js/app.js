@@ -414,7 +414,7 @@ document.getElementById("currentTime").textContent =
         timeZone: "America/Los_Angeles"
     });
 
-    document.getElementById("tokyoDate").textContent =
+    document.getElementById("tripDate").textContent =
         now.toLocaleDateString("en-US", {
             month: "long",
             day: "numeric",
@@ -422,7 +422,7 @@ document.getElementById("currentTime").textContent =
             timeZone: trip.timeZone
         });
 
-    document.getElementById("tokyoTime").textContent =
+    document.getElementById("tripTime").textContent =
     now.toLocaleTimeString("en-US", {
         timeZone: trip.timeZone
     });
