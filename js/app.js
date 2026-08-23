@@ -43,6 +43,63 @@ const aucklandOptions = {
     month: "long",
     day: "numeric"
 };
+const upcomingTrips = [
+    {
+        type: "Work",
+        icon: "💼",
+        destination: "Charlotte",
+        startDate: new Date("2026-08-26T00:00:00"),
+        endDate: new Date("2026-09-02T00:00:00")
+    },
+    {
+        type: "Work",
+        icon: "💼",
+        destination: "New York → Philadelphia → Bethesda",
+        startDate: new Date("2026-10-01T00:00:00"),
+        endDate: new Date("2026-10-12T00:00:00")
+    },
+    {
+        type: "Personal",
+        icon: "🏠",
+        destination: "Philadelphia",
+        startDate: new Date("2026-11-19T00:00:00"),
+        endDate: new Date("2026-12-02T00:00:00")
+    }
+];
+
+function updateUpcomingTrips() {
+
+    const container =
+        document.getElementById("upcomingTrips");
+
+    upcomingTrips.forEach(trip => {
+
+        const tripElement =
+            document.createElement("div");
+
+        const startDate =
+            trip.startDate.toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric"
+            });
+
+        const endDate =
+            trip.endDate.toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric"
+            });
+
+        tripElement.innerHTML = `
+            <div>${trip.icon} ${trip.destination}</div>
+            <div>${trip.type} Trip</div>
+            <div>${startDate} – ${endDate}</div>
+        `;
+
+        container.appendChild(tripElement);
+    });
+}
+
 
 
 // =====================================
@@ -557,5 +614,6 @@ updateToday();
 updateSunriseSunset();
 updateNextMilestone();
 updateTripSunriseSunset();
+updateUpcomingTrips();
 
 setInterval(updateToday, 1000);
