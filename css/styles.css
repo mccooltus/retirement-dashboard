@@ -60,32 +60,38 @@ section {
     margin-bottom: 20px;
 }
 
-#tripCountdown {
-    font-size: 3rem;
+.trip-destination {
+    font-size: 1rem;
     font-weight: 700;
-    line-height: 1;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 14px;
 }
 
-#tripLabel {
+.trip-type {
     color: #cbd5e1;
-    font-size: .9rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 20px;
+    font-size: 0.9rem;
+    margin-top: 2px;
 }
 
-#tripDestination {
+.trip-dates {
     color: #cbd5e1;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     margin-top: 4px;
-    margin-bottom: 12px;
 }
 
-#tripFlight {
+.trip-countdown {
+
     color: #cbd5e1;
-    font-size: 0.95rem;
-    margin-top: 6px;
-}
 
+    font-size: 0.75rem;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    margin-top: 6px;
+
+    margin-bottom: 18px;
+
+}

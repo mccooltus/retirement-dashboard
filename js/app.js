@@ -72,7 +72,18 @@ function updateUpcomingTrips() {
     const container =
         document.getElementById("upcomingTrips");
 
+    // Clear the container before rebuilding the list
+    container.innerHTML = "";
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     upcomingTrips.forEach(trip => {
+
+        // Skip trips that have already ended
+        if (trip.endDate < today) {
+            return;
+        }
 
         const tripElement =
             document.createElement("div");
@@ -90,10 +101,40 @@ function updateUpcomingTrips() {
                 year: "numeric"
             });
 
+        // Calculate days until departure
+        const daysUntilDeparture =
+            Math.ceil(
+                (trip.startDate - today) /
+                (1000 * 60 * 60 * 24)
+            );
+
+        let countdownText = "";
+
+        if (daysUntilDeparture > 0) {
+            countdownText =
+                `${daysUntilDeparture} DAYS UNTIL DEPARTURE`;
+        } else if (daysUntilDeparture === 0) {
+            countdownText = "DEPARTING TODAY!";
+        } else {
+            countdownText = "CURRENTLY ON TRIP";
+        }
+
         tripElement.innerHTML = `
-            <div>${trip.icon} ${trip.destination}</div>
-            <div>${trip.type} Trip</div>
-            <div>${startDate} – ${endDate}</div>
+            <div class="trip-destination">
+                ${trip.icon} ${trip.destination}
+            </div>
+
+            <div class="trip-type">
+                ${trip.type} Trip
+            </div>
+
+            <div class="trip-dates">
+                ${startDate} – ${endDate}
+            </div>
+
+            <div class="trip-countdown">
+                ${countdownText}
+            </div>
         `;
 
         container.appendChild(tripElement);
