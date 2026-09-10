@@ -55,14 +55,14 @@ const upcomingTrips = [
         type: "Work",
         icon: "💼",
         destination: "New York → Philadelphia → Bethesda",
-        startDate: new Date("2026-09-26T00:00:00"),
+        startDate: new Date("2026-09-30T00:00:00"),
         endDate: new Date("2026-10-12T00:00:00")
     },
     {
         type: "Personal",
         icon: "🏠",
         destination: "Philadelphia",
-        startDate: new Date("2026-11-19T00:00:00"),
+        startDate: new Date("2026-11-18T00:00:00"),
         endDate: new Date("2026-12-02T00:00:00")
     }
 ];
@@ -391,8 +391,6 @@ function updateWorkingDaysCountdown() {
 
 }
 
-
-
 // =====================================
 // Trip Countdown
 // =====================================
@@ -643,6 +641,132 @@ async function updateTripSunriseSunset() {
     }
 
 }
+// =====================================
+// Auckland Weather
+// =====================================
+
+function getWeatherIcon(weatherCode) {
+
+    if (weatherCode === 0) {
+        return "☀️";
+    }
+
+    if (weatherCode <= 2) {
+        return "🌤️";
+    }
+
+    if (weatherCode === 3) {
+        return "☁️";
+    }
+
+    if (weatherCode <= 48) {
+        return "🌫️";
+    }
+
+    if (weatherCode <= 67) {
+        return "🌧️";
+    }
+
+    if (weatherCode <= 77) {
+        return "❄️";
+    }
+
+    if (weatherCode <= 82) {
+        return "🌦️";
+    }
+
+    if (weatherCode <= 86) {
+        return "🌨️";
+    }
+
+    return "⛈️";
+}
+
+
+async function updateAucklandWeather() {
+
+    const weatherContainer =
+        document.getElementById("aucklandWeather");
+
+    try {
+
+        const url =
+            "https://api.open-meteo.com/v1/forecast" +
+            "?latitude=-36.8485" +
+            "&longitude=174.7633" +
+            "&daily=weather_code,temperature_2m_max,temperature_2m_min" +
+            "&temperature_unit=fahrenheit" +
+            "&timezone=Pacific%2FAuckland" +
+            "&forecast_days=7";
+
+        const response = await fetch(url);
+
+        const data = await response.json();
+
+        weatherContainer.innerHTML = "";
+
+        for (let i = 0; i < data.daily.time.length; i++) {
+
+            const date = new Date(
+                data.daily.time[i] + "T12:00:00"
+            );
+
+            const day =
+                date.toLocaleDateString("en-US", {
+                    weekday: "short"
+                });
+
+            const icon =
+                getWeatherIcon(
+                    data.daily.weather_code[i]
+                );
+
+            const high =
+                Math.round(
+                    data.daily.temperature_2m_max[i]
+                );
+
+            const low =
+                Math.round(
+                    data.daily.temperature_2m_min[i]
+                );
+
+            const weatherDay =
+                document.createElement("div");
+
+            weatherDay.className =
+                "weather-day";
+
+            weatherDay.innerHTML = `
+                <span class="weather-day-name">
+                    ${day}
+                </span>
+
+                <span class="weather-icon">
+                    ${icon}
+                </span>
+
+                <span class="weather-temp">
+                    ${high}° / ${low}°
+                </span>
+            `;
+
+            weatherContainer.appendChild(
+                weatherDay
+            );
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Unable to load Auckland weather:",
+            error
+        );
+
+        weatherContainer.textContent =
+            "Weather unavailable";
+    }
+}
 
 // =====================================
 // Start Everything
@@ -656,5 +780,6 @@ updateSunriseSunset();
 updateNextMilestone();
 updateTripSunriseSunset();
 updateUpcomingTrips();
+updateAucklandWeather();
 
 setInterval(updateToday, 1000);
