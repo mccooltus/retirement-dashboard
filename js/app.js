@@ -14,6 +14,7 @@
 
 const tripDepartureTime = document.getElementById("tripDepartureTime");
 const retirementDate = new Date("2029-03-01");
+
 const trip = {
     title: "Next Adventure",
     status: "Booked",
@@ -111,12 +112,19 @@ function updateUpcomingTrips() {
         let countdownText = "";
 
         if (daysUntilDeparture > 0) {
+
             countdownText =
                 `${daysUntilDeparture} DAYS UNTIL DEPARTURE`;
+
         } else if (daysUntilDeparture === 0) {
-            countdownText = "DEPARTING TODAY!";
+
+            countdownText =
+                "DEPARTING TODAY!";
+
         } else {
-            countdownText = "CURRENTLY ON TRIP";
+
+            countdownText =
+                "CURRENTLY ON TRIP";
         }
 
         tripElement.innerHTML = `
@@ -140,9 +148,6 @@ function updateUpcomingTrips() {
         container.appendChild(tripElement);
     });
 }
-
-
-
 // =====================================
 // Milestones
 // =====================================
@@ -399,14 +404,62 @@ function updateTripCountdown() {
 
     const today = new Date();
 
-    const difference = trip.departureDateTime - today;
+const departure = trip.departureDateTime;
+const arrival = trip.arrivalDateTime;
+
+// Compare calendar dates
+const todayDate = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate()
+);
+
+const departureDate = new Date(
+    departure.getFullYear(),
+    departure.getMonth(),
+    departure.getDate()
+);
+
+if (
+    todayDate.getTime() === departureDate.getTime() &&
+    today < departure
+) {
+
+    document.getElementById("tripCountdown").textContent =
+        "✈️";
+
+    document.getElementById("tripCountdownLabel").textContent =
+        "DEPARTING TODAY!";
+
+} else if (today < departure) {
 
     const daysRemaining = Math.ceil(
-        difference / (1000 * 60 * 60 * 24)
+        (departure - today) /
+        (1000 * 60 * 60 * 24)
     );
 
-    document.getElementById("tripCountdown").textContent = daysRemaining;
+    document.getElementById("tripCountdown").textContent =
+        daysRemaining;
 
+    document.getElementById("tripCountdownLabel").textContent =
+        "DAYS UNTIL DEPARTURE";
+
+} else if (today < arrival) {
+
+    document.getElementById("tripCountdown").textContent =
+        "✈️";
+
+    document.getElementById("tripCountdownLabel").textContent =
+        "CURRENTLY TRAVELING";
+
+} else {
+
+    document.getElementById("tripCountdown").textContent =
+        "✓";
+
+    document.getElementById("tripCountdownLabel").textContent =
+        "TRIP COMPLETE";
+}
     document.getElementById("tripDepartureDate").textContent =
         trip.departureDateTime.toLocaleDateString("en-US", {
             weekday: "long",
@@ -776,7 +829,6 @@ updateRetirementCountdown();
 updateWorkingDaysCountdown();
 updateTripCountdown();
 updateToday();
-updateSunriseSunset();
 updateNextMilestone();
 updateTripSunriseSunset();
 updateUpcomingTrips();
