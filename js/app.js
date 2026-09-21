@@ -55,7 +55,7 @@ const upcomingTrips = [
     {
         type: "Work",
         icon: "💼",
-        destination: "New York → Philadelphia → Bethesda",
+        destination: "Philadelphia → Bethesda",
         startDate: new Date("2026-09-30T00:00:00"),
         endDate: new Date("2026-10-12T00:00:00")
     },
@@ -155,32 +155,32 @@ function updateUpcomingTrips() {
 const milestones = [
     {
         title: "Labor Day",
-        date: new Date("2026-09-07"),
+        date: new Date("2026-09-07T00:00:00"),
         type: "holiday"
     },
     {
         title: "Birthday",
-        date: new Date("2026-09-27"),
+        date: new Date("2026-09-27T00:00:00"),
         type: "personal"
     },
     {
         title: "50th HS Reunion",
-        date: new Date("2026-10-03"),
+        date: new Date("2026-10-03T00:00:00"),
         type: "personal"
 },
     {
         title: "Veterans Day",
-        date: new Date("2026-11-11"),
+        date: new Date("2026-11-11T00:00:00"),
         type: "holiday"
     },
     {
         title: "Thanksgiving",
-        date: new Date("2026-11-26"),
+        date: new Date("2026-11-26T00:00:00"),
         type: "holiday"
     },
     {
         title: "Christmas",
-        date: new Date("2026-12-25"),
+        date: new Date("2026-12-25T00:00:00"),
         type: "holiday"
     },
     {
@@ -286,16 +286,23 @@ function getNextMilestone() {
 
     const icon = getMilestoneIcon(milestone.type);
 
-   document.getElementById("nextEventName").textContent =
-    `${icon} ${milestone.title}`;
+    document.getElementById("nextEventName").textContent =
+        `${icon} ${milestone.title}`;
 
     const daysRemaining = getDaysUntil(milestone.date);
 
-    const dayText = daysRemaining === 1 ? "Day" : "Days";
+    const dayText = daysRemaining === 1 ? "DAY" : "DAYS";
 
     document.getElementById("nextEventDate").textContent =
-    `in ${daysRemaining} ${dayText}`;
+        `${daysRemaining} ${dayText}`;
 
+    document.getElementById("nextEventDateValue").textContent =
+        milestone.date.toLocaleDateString("en-US", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        });
 }
 
 function getDaysUntil(targetDate) {
