@@ -579,16 +579,22 @@ document.getElementById("currentDay").textContent =
 
 document.getElementById("currentDate").textContent =
     now.toLocaleDateString("en-US", {
+        weekday: "long",
         month: "long",
         day: "numeric",
         year: "numeric",
         timeZone: "America/Los_Angeles"
     });
 
-document.getElementById("currentTime").textContent =
-    now.toLocaleTimeString("en-US", {
-        timeZone: "America/Los_Angeles"
-    });
+ document.getElementById("currentTime").textContent =
+now.toLocaleTimeString("en-US", {
+    timeZone: "America/Los_Angeles",
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true
+});
+    
 
     document.getElementById("tripDate").textContent =
         now.toLocaleDateString("en-US", {
@@ -602,8 +608,9 @@ document.getElementById("currentTime").textContent =
     now.toLocaleTimeString("en-US", {
         timeZone: trip.timeZone
     });
+    }
 
-}
+
 
 // =====================================
 // Sunrise / Sunset Helper
