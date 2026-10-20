@@ -25,14 +25,22 @@ const trip = {
     latitude: -36.8509,
     longitude: 174.7645,
 
-    departureDateTime: new Date("2026-10-20T21:10:00"),
-    arrivalDateTime: new Date("2026-10-22T06:00:00+13:00"),
+    departureDateTime: new Date("2026-10-21T21:10:00"),
+arrivalDateTime: new Date("2026-10-23T06:00:00+13:00"),
 
     departureAirport: "LAX",
     arrivalAirport: "AKL",
 
     airline: "Air New Zealand",
     flight: "NZ5",
+
+    
+returnFlight: "NZ4",
+returnDepartureDateTime: new Date("2026-11-06T19:00:00+13:00"),
+returnArrivalDateTime: new Date("2026-11-06T10:05:00-08:00"),
+
+returnDepartureAirport: "AKL",
+returnArrivalAirport: "LAX",
 
     timeZone: "Pacific/Auckland"
 };
@@ -510,21 +518,28 @@ if (
 document.getElementById("tripFlightDuration").textContent =
     `Flight Duration: ${flightHours}h ${flightMinutes}m`;
 
-
     document.getElementById("tripFlight").textContent =
-        `${trip.airline} • ${trip.flight}`;
+    `${trip.airline} - ${trip.flight}`;
 
-    document.getElementById("tripDestination").textContent =
-        `${trip.city}, ${trip.country}`
 
-    const hour = Number(
-    new Intl.DateTimeFormat("en-US", {
+   document.getElementById("tripReturnDate").textContent =
+    `Return Departure: ${trip.returnDepartureDateTime.toLocaleDateString("en-US", {
+        timeZone: trip.timeZone,
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric"
+    })} at ${trip.returnDepartureDateTime.toLocaleTimeString("en-US", {
+        timeZone: trip.timeZone,
         hour: "numeric",
-        hour12: false,
-        timeZone: trip.timeZone
-    }).format(new Date())
+        minute: "2-digit",
+        timeZoneName: "short"
+    })}`;
 
-);
+document.getElementById("tripReturnFlight").textContent =
+    `${trip.airline} - ${trip.returnFlight} (${trip.returnDepartureAirport} → ${trip.returnArrivalAirport})`;
+
+;
 
 
 if (hour >= 9 && hour < 17) {
