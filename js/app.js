@@ -532,15 +532,20 @@ document.getElementById("tripFlightDuration").textContent =
     })} at ${trip.returnDepartureDateTime.toLocaleTimeString("en-US", {
         timeZone: trip.timeZone,
         hour: "numeric",
-        minute: "2-digit",
-        timeZoneName: "short"
-    })}`;
+        minute: "2-digit"
+    })} NZDT`;
 
 document.getElementById("tripReturnFlight").textContent =
     `${trip.airline} - ${trip.returnFlight} (${trip.returnDepartureAirport} → ${trip.returnArrivalAirport})`;
 
 ;
-
+const hour = Number(
+    new Intl.DateTimeFormat("en-US", {
+        hour: "numeric",
+        hour12: false,
+        timeZone: trip.timeZone
+    }).format(new Date())
+);
 
 if (hour >= 9 && hour < 17) {
 
